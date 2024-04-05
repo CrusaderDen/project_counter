@@ -1,70 +1,68 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from '../Counter.module.css'
 import {Input} from "./Input";
 import {Button} from "./Button";
+import {CounterStateType} from "../Counter";
 
 type CounterSetPropsType = {
-    setMaxValue: (value: number) => void
-    setStartValue: (value: number) => void
-    setCount: (value: number) => void
-    maxValue: number
-    startValue: number
-    disableSet: boolean
-    setDisableSet: (v: boolean) => void
-    setDisableButtons: (v: boolean) => void
-    setError: (v: string) => void
-    setReachedMaxLimit: (v: boolean) => void
+    counterState: CounterStateType
+    setCounterState: (v: CounterStateType) => void
 }
 
-export const CounterSet = ({
-                               setMaxValue,
-                               setStartValue,
-                               setCount,
-                               maxValue,
-                               startValue,
-                               disableSet,
-                               setDisableSet,
-                               setDisableButtons,
-                               setError,
-                               setReachedMaxLimit
-                           }: CounterSetPropsType) => {
+export const CounterSet = ({counterState, setCounterState}: CounterSetPropsType) => {
 
-    const [currentMax, setCurrentMax] = useState(maxValue)
-    const [currentStart, setCurrentStart] = useState(startValue)
-
+    const [currentMax, setCurrentMax] = useState(counterState.maxValue)
+    const [currentStart, setCurrentStart] = useState(counterState.startValue)
 
     let fullInputClassName = s.setInput
-    if (currentStart < 0 || currentStart >= currentMax) {
-        setDisableSet(true)
-        setError('Uncorrect value')
-        fullInputClassName = fullInputClassName + ' ' + s.danger
-    } else if (currentStart > 999999 || currentMax > 999999) {
-        setDisableSet(true)
-        setError('Too long number')
-        fullInputClassName = fullInputClassName + ' ' + s.danger
-    } else {
-        setError('')
-    }
+    useEffect(() => {
+        if (currentStart < 0 || currentStart >= currentMax) {
+            counterState.disableSet = true
+            counterState.error = 'Uncorrect value'
+            setCounterState({...counterState})
+            fullInputClassName = fullInputClassName + ' ' + s.danger
+        } else if (currentStart > 999999 || currentMax > 999999) {
+            counterState.disableSet = true
+            counterState.error = 'Too long number'
+            setCounterState({...counterState})
+            fullInputClassName = fullInputClassName + ' ' + s.danger
+        } else {
+            counterState.error = ''
+            setCounterState({...counterState})
+        }
+
+    }, [currentMax, currentStart])
 
 
     const doSaveSet = () => {
-        setMaxValue(currentMax)
-        setStartValue(currentStart)
-        setCount(currentStart)
-        setReachedMaxLimit(false)
-        setDisableSet(true)
-        setDisableButtons(false)
+        counterState.maxValue = currentMax
+        counterState.startValue = currentStart
+        counterState.count = currentStart
+        counterState.reachedMaxLimit = false
+        counterState.disableSet = true
+        counterState.disableButtons = false
+        setCounterState({...counterState})
     }
+
 
     return (
         <div className={s.counterBody}>
             <div className={s.setBody}>
                 <div className={s.setInputs}>
-                    <Input name={'max value'} fullInputClassName={fullInputClassName} value={currentMax} setValue={setCurrentMax} setDisableSet={setDisableSet} setDisableButtons={setDisableButtons}/>
-                    <Input name={'start value'} fullInputClassName={fullInputClassName} value={currentStart} setValue={setCurrentStart} setDisableSet={setDisableSet}
-                           setDisableButtons={setDisableButtons}/>
+                    <Input name={'max value'}
+                           fullInputClassName={fullInputClassName}
+                           value={currentMax} setValue={setCurrentMax}
+                           counterState={counterState}
+                           setCounterState={setCounterState}
+                    />
+                    <Input name={'start value'}
+                           fullInputClassName={fullInputClassName}
+                           value={currentStart} setValue={setCurrentStart}
+                           counterState={counterState}
+                           setCounterState={setCounterState}
+                    />
                 </div>
-                <Button name={'set'} buttonHandler={doSaveSet} disableSet={disableSet}/>
+                <Button name={'set'} buttonHandler={doSaveSet} disableSet={counterState.disableSet}/>
             </div>
         </div>
     );

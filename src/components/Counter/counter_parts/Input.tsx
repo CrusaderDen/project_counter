@@ -1,20 +1,22 @@
 import React, {ChangeEvent} from "react";
 import s from '../Counter.module.css'
+import {CounterStateType} from "../Counter";
 
 type InputPropsType = {
     name: string
     value: number
     setValue: (value: number) => void
-    setDisableSet: (v: boolean) => void
     fullInputClassName: string
-    setDisableButtons: (v: boolean) => void
+    counterState: CounterStateType
+    setCounterState: (v: CounterStateType) => void
 }
-export const Input = ({name, value, setValue, setDisableSet, fullInputClassName, setDisableButtons}: InputPropsType) => {
+export const Input = ({name, value, setValue, fullInputClassName, counterState, setCounterState}: InputPropsType) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(Number(e.currentTarget.value))
-        setDisableSet(false)
-        setDisableButtons(true)
+        counterState.disableSet = false
+        counterState.disableButtons = true
+        setCounterState({...counterState})
     }
     return (
         <legend className={s.setLegend}>

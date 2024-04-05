@@ -3,48 +3,38 @@ import {CounterMain} from "./counter_parts/CounterMain";
 import {CounterSet} from "./counter_parts/CounterSet";
 import s from "./Counter.module.css";
 
-export const Counter = () => {
-    const [count, setCount] = useState(0)
-    const [maxValue, setMaxValue] = useState(5)
-    const [startValue, setStartValue] = useState(0)
-    const [reachedMaxLimit, setReachedMaxLimit] = useState(false)
-    const [disableSet, setDisableSet] = useState(true)
-    const [disableButtons, setDisableButtons] = useState(false)
+export type CounterStateType = {
+    count: number
+    maxValue: number
+    startValue: number
+    error: string
+    reachedMaxLimit: boolean
+    disableSet: boolean
+    disableButtons: boolean
+}
 
-    const [error, setError] = useState('')
+export const Counter = () => {
+
+    const [counterState, setCounterState] = useState<CounterStateType>({
+        count: 0,
+        maxValue: 5,
+        startValue: 0,
+        error: '',
+        reachedMaxLimit: false,
+        disableSet: true,
+        disableButtons: false
+    })
 
     useEffect(() => {
-        if (count >= maxValue) setReachedMaxLimit(true)
+        if (counterState.count >= counterState.maxValue) setCounterState({...counterState, reachedMaxLimit: true})
 
-    }, [count])
+    }, [counterState, counterState.count])
 
 
     return (
         <div className={s.counterWrapper}>
-            <CounterMain
-                count={count}
-                setCount={setCount}
-                startValue={startValue}
-                maxValue={maxValue}
-                reachedMaxLimit={reachedMaxLimit}
-                setReachedMaxLimit={setReachedMaxLimit}
-                error={error}
-                setError={setError}
-                disableButtons={disableButtons}
-                setDisableButtons={setDisableButtons}
-            />
-            <CounterSet
-                setMaxValue={setMaxValue}
-                setStartValue={setStartValue}
-                setCount={setCount}
-                maxValue={maxValue}
-                startValue={startValue}
-                disableSet={disableSet}
-                setDisableSet={setDisableSet}
-                setDisableButtons={setDisableButtons}
-                setError={setError}
-                setReachedMaxLimit={setReachedMaxLimit}
-            />
+            <CounterMain counterState={counterState} setCounterState={setCounterState}/>
+            <CounterSet counterState={counterState} setCounterState={setCounterState}/>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import s from '../Counter.module.css'
+import btn_styles from './btn_Styles.module.css'
 
 type ButtonPropsType = {
     name: string
@@ -11,16 +11,15 @@ type ButtonPropsType = {
 
 export const Button = ({name, buttonHandler, reachedMaxLimit, disableSet, disableButtons}: ButtonPropsType) => {
 
-    // const fullButtonClassName = reachedMaxLimit ? s.uniButton + ' ' + s.disabled : s.uniButton
-    let fullButtonClassName = s.uniButton
+    let fullButtonClassName = btn_styles.uniButton
     if (name === '+' && reachedMaxLimit) {
-        fullButtonClassName = fullButtonClassName + ' ' + s.disabled
+        fullButtonClassName = fullButtonClassName + ' ' + btn_styles.disabled
     }
     if (name === 'set' && disableSet) {
-        fullButtonClassName = fullButtonClassName + ' ' + s.disabled
+        fullButtonClassName = fullButtonClassName + ' ' + btn_styles.disabled
     }
     if (disableButtons) {
-        fullButtonClassName = fullButtonClassName + ' ' + s.disabled
+        fullButtonClassName = fullButtonClassName + ' ' + btn_styles.disabled
     }
 
 
