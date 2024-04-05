@@ -1,0 +1,163 @@
+
+.counterWrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #9fb7f5;
+}
+
+.counterBody {
+    width: 300px;
+    height: 268px;
+    padding: 10px;
+    background-color: #000;
+    border-radius: 5px;
+    color: #fff;
+    position: relative;
+}
+
+.setBody {
+    text-align: center;
+    padding: 10px;
+}
+
+.outputResult {
+    user-select: none;
+    padding: 10px;
+    font-size: 68px;
+    font-weight: 700;
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.outputResultMax {
+    color: #d80000;
+    font-size: 80px;
+}
+
+.counterBodyButtons {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    padding: 10px;
+    height: 100%;
+    align-items: flex-end;
+}
+
+.uniButton {
+    user-select: none;
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 34px;
+}
+
+.uniButton:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.uniButton:active {
+    color: #000
+}
+
+.uniButton:active:after {
+    background: transparent;
+}
+
+.uniButton:hover:before {
+    opacity: 1;
+}
+
+.uniButton:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #3e3e3e;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.setInputs {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.setLegend {
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.setInput {
+    background-color: #c4a417;
+    max-width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    color: #000000;
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+}
+
+.disabled {
+    pointer-events: none;
+    color: #acabab;
+    opacity: 0.5;
+}
+
+.danger {
+    background-color: rgb(255, 101, 101);
+}
+
+.error {
+    font-size: 24px;
+    color: rgb(255, 101, 101);
+}
