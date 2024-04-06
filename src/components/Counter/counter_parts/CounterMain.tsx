@@ -5,19 +5,20 @@ import {CounterStateType} from "../Counter";
 
 type CounterMainPropsType = {
     counterState: CounterStateType
-    setCounterState: (v: CounterStateType) => void
+    setCounterState: any
 }
 
 export const CounterMain = ({counterState, setCounterState}: CounterMainPropsType) => {
 
-
     const doIncrement = () => {
-        setCounterState({...counterState, count: counterState.count + 1})
+        setCounterState((prevState: CounterStateType) => {
+            const updatedCount = prevState.count + 1;
+            const reachedMaxLimit = updatedCount >= prevState.maxValue;
+            return {...prevState, count: updatedCount, reachedMaxLimit};
+        });
     }
     const doReset = () => {
-        counterState.count = counterState.startValue
-        counterState.reachedMaxLimit = false
-        setCounterState({...counterState})
+        setCounterState({...counterState, count: counterState.startValue, reachedMaxLimit: false})
     }
 
     const fullOutputResultClass = counterState.reachedMaxLimit ? s.outputResult + ' ' + s.outputResultMax : s.outputResult

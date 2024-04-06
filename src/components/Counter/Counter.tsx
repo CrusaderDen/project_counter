@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {CounterMain} from "./counter_parts/CounterMain";
 import {CounterSet} from "./counter_parts/CounterSet";
 import s from "./Counter.module.css";
@@ -25,16 +25,13 @@ export const Counter = () => {
         disableButtons: false
     })
 
-    useEffect(() => {
-        if (counterState.count >= counterState.maxValue) setCounterState({...counterState, reachedMaxLimit: true})
-
-    }, [counterState, counterState.count])
-
 
     return (
         <div className={s.counterWrapper}>
             <CounterMain counterState={counterState} setCounterState={setCounterState}/>
             <CounterSet counterState={counterState} setCounterState={setCounterState}/>
         </div>
+
     );
 };
+
