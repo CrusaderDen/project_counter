@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
 import s from '../Counter.module.css'
 import {Button} from "./Button";
 import {CounterStateType} from "../Counter";
 
 type CounterMainPropsType = {
     counterState: CounterStateType
-    setCounterState: any
+    setCounterState: Dispatch<SetStateAction<CounterStateType>>
 }
 
 export const CounterMain = ({counterState, setCounterState}: CounterMainPropsType) => {

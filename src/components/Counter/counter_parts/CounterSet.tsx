@@ -30,6 +30,7 @@ export const CounterSet = ({counterState, setCounterState}: CounterSetPropsType)
     }
 
     const saveSet = () => {
+
         setCounterState({
             ...counterState,
             count: currentStart,
