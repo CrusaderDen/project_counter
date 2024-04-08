@@ -72,3 +72,35 @@
     color: #acabab;
     opacity: 0.5;
 }
+
+
+.additionalButton {
+    position: absolute;
+    top: 40px;
+    background-color: transparent;
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    width: 30px;
+    height: 30px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: #fff;
+        color: #000;
+    }
+    
+    &:active {
+        background-color: #3e3e3e;
+    }
+}
+
+.additionalButtonLeft {
+    left: -5px;
+}
+
+.additionalButtonRight {
+    right: -5px;
+}

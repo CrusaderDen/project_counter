@@ -36,8 +36,7 @@ export const Counter = () => {
 
     useEffect(() => {
         localStorage.setItem('counter', JSON.stringify(counterState))
-    }, [counterState]);
-
+    }, [counterState])
 
     return (
         <div className={s.counterWrapper}>

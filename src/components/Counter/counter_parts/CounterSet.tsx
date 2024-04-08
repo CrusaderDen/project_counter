@@ -42,6 +42,19 @@ export const CounterSet = ({counterState, setCounterState}: CounterSetPropsType)
         })
     }
 
+    const buttonIncrement = (name: string) => {
+        if (name === 'max value') setCurrentMax(currentMax + 1)
+        if (name === 'start value') setCurrentStart(currentStart + 1)
+        setCounterState({...counterState, error: '', disableSet: false, disableButtons: true})
+    }
+
+    const buttonDecrement = (name: string) => {
+        if (name === 'max value') setCurrentMax(currentMax - 1)
+        if (name === 'start value') setCurrentStart(currentStart - 1)
+        setCounterState({...counterState, error: '', disableSet: false, disableButtons: true})
+    }
+
+
     useEffect(() => {
         checkSet()
     }, [currentMax, currentStart])
@@ -55,12 +68,16 @@ export const CounterSet = ({counterState, setCounterState}: CounterSetPropsType)
                         error={counterState.error}
                         value={currentMax}
                         updateCurrentValue={updateCurrentValue}
+                        buttonIncrement={buttonIncrement}
+                        buttonDecrement={buttonDecrement}
                     />
                     <Input
                         name={'start value'}
                         error={counterState.error}
                         value={currentStart}
                         updateCurrentValue={updateCurrentValue}
+                        buttonIncrement={buttonIncrement}
+                        buttonDecrement={buttonDecrement}
                     />
                 </div>
                 <Button

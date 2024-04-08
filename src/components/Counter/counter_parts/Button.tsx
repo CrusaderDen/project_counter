@@ -7,9 +7,10 @@ type ButtonPropsType = {
     reachedMaxLimit?: boolean
     disableSet?: boolean
     disableButtons?: boolean
+    xType?: string
 }
 
-export const Button = ({name, buttonHandler, reachedMaxLimit, disableSet, disableButtons}: ButtonPropsType) => {
+export const Button = ({name, buttonHandler, reachedMaxLimit, disableSet, disableButtons, xType}: ButtonPropsType) => {
 
     let fullButtonClassName = btn_styles.uniButton
     if (name === '+' && reachedMaxLimit) {
@@ -20,6 +21,13 @@ export const Button = ({name, buttonHandler, reachedMaxLimit, disableSet, disabl
     }
     if (disableButtons) {
         fullButtonClassName = fullButtonClassName + ' ' + btn_styles.disabled
+    }
+
+    if (xType === 'additionalButtonLeft') {
+        fullButtonClassName = btn_styles.additionalButton + ' ' + btn_styles.additionalButtonLeft
+    }
+    if (xType === 'additionalButtonRight') {
+        fullButtonClassName = btn_styles.additionalButton + ' ' + btn_styles.additionalButtonRight
     }
 
 
